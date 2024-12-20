@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FTD Diagnostic Tool</title>
+    <style>
+        /* General Reset */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: "Arial", sans-serif;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #001f4d, #00509d);
+        }
+
+        /* Main Container */
+        .container {
+            text-align: center;
+            max-width: 600px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Headings */
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        /* Buttons */
+        button {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #ffffff;
+            background: linear-gradient(135deg, #0066cc, #003d80);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 10px;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #00509d, #001f4d);
+            transform: scale(1.1);
+        }
+
+        button:active {
+            transform: scale(1.05);
+        }
+
+        /* Hidden Elements */
+        .hidden {
+            display: none;
+        }
+
+        /* Result Styling */
+        .result {
+            font-weight: bold;
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>FTD Diagnostic Tool</h1>
+        <p>Please answer the following questions with "Yes" or "No" to receive your diagnostic score.</p>
+
+        <div id="consent-section">
+            <p>Would you like to proceed?</p>
+            <button onclick="startQuestions()">Yes</button>
+            <button onclick="exitProgram()">No</button>
+        </div>
+
+        <div id="question-section" class="hidden">
+            <p id="current-question"></p>
+            <button onclick="recordAnswer('yes')">Yes</button>
+            <button onclick="recordAnswer('no')">No</button>
+        </div>
+
+        <div id="result-section" class="hidden">
+            <p id="score-result"></p>
+            <p id="analysis"></p>
+            <p>Would you like an analysis of your score?</p>
+            <button onclick="showAnalysis()">Yes</button>
+            <button onclick="exitProgram()">No</button>
+        </div>
+    </div>
+
+    <script>
+        let score = 0;
+        const questions = [
+            "Do you frequently forget recent events or conversations?",
+            "Do you often feel confused about dates, time, or other semantics?",
+            "Do you struggle to find the right words during conversations?",
+            "Do you find it hard to concentrate or complete familiar tasks?",
+            "Have you noticed poor judgment in handling your tasks?",
+            "Do you experience sudden mood swings?",
+            "Do you have difficulty recognizing familiar faces or places?",
+            "Do you frequently make mistakes while performing tasks that you used to do well?",
+            "Have you noticed that your speech has become slower or that you stutter more frequently?"
+        ];
+        let currentQuestionIndex = 0;
+
+        function startQuestions() {
+            document.getElementById('consent-section').classList.add('hidden');
+            document.getElementById('question-section').classList.remove('hidden');
+            showQuestion();
+        }
+
+        function showQuestion() {
+            if (currentQuestionIndex < questions.length) {
+                document.getElementById('current-question').textContent = questions[currentQuestionIndex];
+            } else {
+                showResults();
+            }
+        }
+
+        function recordAnswer(answer) {
+            if (answer === 'yes') {
+                score++;
+            }
+            currentQuestionIndex++;
+            showQuestion();
+        }
+
+        function showResults() {
+            document.getElementById('question-section').classList.add('hidden');
+            document.getElementById('result-section').classList.remove('hidden');
+            document.getElementById('score-result').textContent = `Your score is: ${score}`;
+
+            let analysis = '';
+            if (score === 0) {
+                analysis = "You show no symptoms of FTD.";
+            } else if (score <= 3) {
+                analysis = "You have mild symptoms. Consider monitoring your condition.";
+            } else if (score <= 6) {
+                analysis = "You have moderate symptoms. Consider consulting a healthcare professional.";
+            } else {
+                analysis = "You have significant symptoms. It's recommended that you seek medical advice immediately.";
+            }
+
+            document.getElementById('analysis').textContent = analysis;
+        }
+
+        function showAnalysis() {
+            alert("Thank you for using this tool. Take care!");
+        }
+
+        function exitProgram() {
+            alert("Exiting the program. Take care!");
+        }
+    </script>
+</body>
+</html>
