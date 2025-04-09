@@ -1,5 +1,5 @@
 import time
-
+import mne
 
 def symptom_alt():
     print("Diagnostic for FTD (fronto-temporal dementia). Please answer with 'yes' or 'no', then view your score after!")
@@ -74,3 +74,7 @@ def follow_up(score):
 
 
 symptom_alt()
+
+
+report = mne.Report(title="Hello")
+report.save("report_raw.html", overwrite=True)
