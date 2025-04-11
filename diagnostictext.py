@@ -1,6 +1,9 @@
+#Importing the necessary files required towards building the system.
 import time
 import mne
 
+
+#First function that sets up the landing page of the system. 
 def symptom_alt():
     print("Diagnostic for FTD (fronto-temporal dementia). Please answer with 'yes' or 'no', then view your score after!")
 
@@ -17,9 +20,11 @@ def symptom_alt():
         exit()
 
 
+#Second function that holds a list of questions and leverages such questions in a "Yes" and "No" format to get responses from users.
 def question_ftd():
     score = 0
 
+    #List of questions (Used in an array)
     questions = [
         "Do you frequently forget recent events or conversations?",
         "Do you often feel confused about dates, time, or other semantics?",
@@ -32,13 +37,15 @@ def question_ftd():
         "Have you noticed that your speech has become slower or that you stutter more frequently?"
     ]
 
+    #For loop that selects each question from the array and displays it onto the web server.
     for question in questions:
         while True:
             response = input(question + " ").strip().lower()
             if response in ["yes", "no"]:
                 break
             print("Invalid. Try again.")
-        
+
+        #Score changes based on score increasing. This score value is just showing how many out of all the symptoms available that you have.
         if response == "yes":
             score += 1
 
@@ -71,10 +78,8 @@ def follow_up(score):
 
 
 
-
-
 symptom_alt()
 
-
+#Create a report using the MNE-Python module. This report intends to show the details of the diagnosis as well as tips to help people feel better.
 report = mne.Report(title="Hello")
 report.save("report_raw.html", overwrite=True)
