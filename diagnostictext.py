@@ -80,7 +80,7 @@ def follow_up(score):
         exit()
 
 
-
+#Call the function in the bottom so that the system can actually run it and provide results!
 symptom_alt()
 
 #Create a report using the MNE-Python module. This report intends to show the details of the diagnosis as well as tips to help people feel better.
