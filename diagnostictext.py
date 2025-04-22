@@ -1,5 +1,8 @@
 #Importing the necessary files required towards building the system.
+
 import time
+
+#MNE module is important towards the usage of reports to provide clear and accurate data to the people using the system.
 import mne
 
 
@@ -14,6 +17,7 @@ def symptom_alt():
         print("Invalid, please try again.")
     
     if consent == "yes":
+        #Calls for questions array to be activated.
         question_ftd()
     elif consent == "no":
         print("Thank you. Exiting the program.")
