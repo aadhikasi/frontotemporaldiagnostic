@@ -49,10 +49,11 @@ def question_ftd():
         if response == "yes":
             score += 1
 
+    
     print(f"Your score is: {score}")
     follow_up(score)
 
-
+#Function that prints the score at the end with a gist of what the score means in terms of the diagnosis.
 def follow_up(score):
     print("\nHere is your analysis!")
     if score == 0:
@@ -64,6 +65,8 @@ def follow_up(score):
     else:
         print("You have significant symptoms. It's recommended that you seek medical advice immediately.")
 
+
+    #Loop that calls for an option for the user to get an analysis of the score. 
     while True:
         follow_up_for_analysis = input("\nWant an analysis of your score? Answer 'yes' or 'no': ").strip().lower()
         if follow_up_for_analysis in ["yes", "no"]:
