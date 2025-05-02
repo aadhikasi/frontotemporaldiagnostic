@@ -225,3 +225,20 @@ def follow_up(score):
 
 # Call the function in the bottom so that the system can actually run it and provide results!
 symptom_alt()
+% Simulated data for brain deterioration
+years = 0:1:10;
+healthy_brain_volume = 100 - 0.5 * years; % healthy aging
+ftd_brain_volume = 100 - 3.5 * years; % FTD degeneration
+
+figure;
+plot(years, healthy_brain_volume, '-g', 'LineWidth', 2); hold on;
+plot(years, ftd_brain_volume, '-r', 'LineWidth', 2);
+legend('Healthy Brain', 'FTD-Affected Brain');
+xlabel('Years');
+ylabel('Brain Volume (%)');
+title('Simulated Brain Volume Decline');
+grid on;
+
+% Save as PNG
+saveas(gcf, 'brain_deterioration.png');
+
