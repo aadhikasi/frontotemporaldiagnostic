@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FTD Diagnostic Tool</title>
-    /* Styling for the HTML file */
+    <!-- Styling for the HTML page-->
     <style>
         /* General Reset */
         body, html {
@@ -80,6 +80,7 @@
 </head>
 <body>
     <div class="container">
+        <!-- Container that holds the starting page for the system.-->
         <h1>FTD Diagnostic Tool</h1>
         <p>Please answer the following questions with "Yes" or "No" to receive your diagnostic score. Created by Abhiram and Aadhi. </p>
 
@@ -88,7 +89,7 @@
             <button onclick="startQuestions()">Yes</button>
             <button onclick="exitProgram()">No</button>
         </div>
-
+<!-- Sample question and answer code.-->
         <div id="question-section" class="hidden">
             <p id="current-question"></p>
             <button onclick="recordAnswer('yes')">Yes</button>
@@ -105,6 +106,7 @@
     </div>
 
     <script>
+        //JavaScript code that holds all the questions that would be asked to the user to diagnose them.
         let score = 0;
         const questions = [
             "Do you frequently forget recent events or conversations?",
@@ -125,6 +127,7 @@
             showQuestion();
         }
 
+        //Function that shows questions and leverages indexing formats to put questions in front of the user.
         function showQuestion() {
             if (currentQuestionIndex < questions.length) {
                 document.getElementById('current-question').textContent = questions[currentQuestionIndex];
@@ -132,6 +135,8 @@
                 showResults();
             }
         }
+
+        //If someone says yes, score increases. If someone says no, score stays the same.
 
         function recordAnswer(answer) {
             if (answer === 'yes') {
@@ -141,11 +146,15 @@
             showQuestion();
         }
 
+
+        // Results are retrieved and brought onto the webserver.
         function showResults() {
             document.getElementById('question-section').classList.add('hidden');
             document.getElementById('result-section').classList.remove('hidden');
             document.getElementById('score-result').textContent = `Your score is: ${score}`;
 
+
+            //Scores and their relative representations of things to do.
             let analysis = '';
             if (score === 0) {
                 analysis = "You show no symptoms of FTD.";
@@ -160,6 +169,8 @@
             document.getElementById('analysis').textContent = analysis;
         }
 
+
+        //Function that works as a terminating system for the server.
         function showAnalysis() {
             alert("Thank you for using this tool. Take care!");
         }
@@ -168,5 +179,7 @@
             alert("Exiting the program. Take care!");
         }
     </script>
+
+    <!-- End of script -->
 </body>
 </html>
