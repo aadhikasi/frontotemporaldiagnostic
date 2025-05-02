@@ -223,22 +223,40 @@ def follow_up(score):
     report.save("report_raw.html", overwrite=True)
 
 
-# Call the function in the bottom so that the system can actually run it and provide results!
-symptom_alt()
-% Simulated data for brain deterioration
-years = 0:1:10;
-healthy_brain_volume = 100 - 0.5 * years; % healthy aging
-ftd_brain_volume = 100 - 3.5 * years; % FTD degeneration
+import matplotlib.pyplot as plt
 
-figure;
-plot(years, healthy_brain_volume, '-g', 'LineWidth', 2); hold on;
-plot(years, ftd_brain_volume, '-r', 'LineWidth', 2);
-legend('Healthy Brain', 'FTD-Affected Brain');
-xlabel('Years');
-ylabel('Brain Volume (%)');
-title('Simulated Brain Volume Decline');
-grid on;
+# Auto-generate a new Python script that plots brain deterioration data
+plot_script = f'''
+import matplotlib.pyplot as plt
 
-% Save as PNG
-saveas(gcf, 'brain_deterioration.png');
+# Simulated brain volume data over time (years)
+years = list(range(0, 11))
+healthy = [100 - y*1.2 for y in years]  # Healthy aging
+ftd = [100 - y*3.0 for y in years]      # FTD progression
+
+plt.figure(figsize=(8, 5))
+plt.plot(years, healthy, label='Healthy Brain', linestyle='--', marker='o')
+plt.plot(years, ftd, label='FTD Brain', linestyle='-', marker='s')
+
+# Mark user's score
+plt.axhline(y=100 - {score} * 3, color='red', linestyle=':', label='Your Risk Indicator')
+
+plt.title('Brain Volume Decline Over Time')
+plt.xlabel('Years Since Baseline')
+plt.ylabel('Brain Volume (% of initial)')
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+
+# Save the graph
+plt.savefig('brain_deterioration.png')
+plt.show()
+'''
+
+# Write the Python code to a file
+with open("plot_output.py", "w") as f:
+    f.write(plot_script)
+
+print("\n✅ A new file 'plot_output.py' has been created. Run it to view your brain deterioration graph.")
+
 
